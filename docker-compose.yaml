@@ -1,0 +1,14 @@
+services:
+  awen:
+    image: awencasa/awen:latest
+    container_name: awen
+    ports:
+      - "8292:8080"
+    environment: {}
+    volumes:
+      - ./data:/app/data
+    mem_limit: 512m
+    memswap_limit: 512m
+    cpus: 1.0
+    pids_limit: 200
+    restart: unless-stopped
