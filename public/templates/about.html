@@ -1,0 +1,42 @@
+<div class="content-narrow">
+  <div class="article-header">
+    <a href="/" class="back-link">&larr; Back to essays</a>
+    <h1 class="article-title">About Awen</h1>
+    <p class="article-lead">
+      Critical perspectives on politics, technology, history, and sovereign thought.
+    </p>
+  </div>
+
+  <div class="prose">
+    <p>
+      In Celtic mythology, <strong>Awen</strong> (pronounced <em>/ˈaʊ.ɛn/</em>) represents the sudden influx of poetic inspiration, divine illumination, and creative energy. The traditional symbol consists of three rays of light descending from three focal points, symbolizing the harmony of truth, nature, and the human spirit.
+    </p>
+
+    <h2>The Architectural Philosophy</h2>
+    <p>
+      Awen was built as an antidote to algorithmic noise. While the modern web is often congested with popups, aggressive trackers, and fleeting attention traps, Awen operates on classical principles:
+    </p>
+
+    <ul>
+      <li><strong>Monochromatic Restraint:</strong> Eliminating extraneous color to let thought, proportion, and typography communicate without distraction.</li>
+      <li><strong>Independent Static Generation:</strong> Pages are compiled cleanly ahead of time from Markdown into permanent, accessible HTML.</li>
+      <li><strong>Lightweight Dynamic Dialogue:</strong> Allowing readers to applaud work with unlimited claps and contribute reflections stored transparently in human-readable YAML files.</li>
+      <li><strong>Respect for Time and Senses:</strong> Complete light and dark mode parity, zero tracking scripts, and sub-millisecond load times.</li>
+    </ul>
+
+    <h2>Technical Foundation</h2>
+    <p>
+      Awen is powered by an ultra-lean Go toolchain:
+    </p>
+
+    <ul>
+      <li><code>generator.go</code>: Compiles Markdown from <code>blog/</code> with YAML frontmatter, renders full pagination, tag archives, search index, and RSS feed into <code>dist/</code>.</li>
+      <li><code>main.go</code>: Serves the static site and handles real-time REST API endpoints for claps and comments, storing state directly in <code>data/&lt;slug&gt;.yaml</code>.</li>
+      <li>Pure vanilla CSS and lightweight client-side JavaScript for theme switching, instant search, and live interaction.</li>
+    </ul>
+
+    <blockquote>
+      <p>"When you remove everything extraneous, what remains is not nothing—what remains is everything that matters."</p>
+    </blockquote>
+  </div>
+</div>

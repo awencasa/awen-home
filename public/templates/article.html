@@ -1,0 +1,111 @@
+<article class="content-narrow" data-article-slug="{{ .Article.Slug }}">
+  <div class="article-header">
+    <a href="/" class="back-link">&larr; Back to essays</a>
+
+    <div class="card-tags" style="margin-bottom: 1.25rem;">
+      {{ range .Article.Tags }}
+      <a href="/tags/{{ . | urlquery }}/" class="card-tag">#{{ . }}</a>
+      {{ end }}
+    </div>
+
+    <h1 class="article-title">{{ .Article.Title }}</h1>
+
+    {{ if .Article.Summary }}
+    <p class="article-lead">{{ .Article.Summary }}</p>
+    {{ end }}
+
+    <div class="article-meta-bar">
+      <div class="author-block">
+        <span class="author-avatar">{{ .Article.AuthorInitials }}</span>
+        <span>{{ .Article.Author }}</span>
+      </div>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <time datetime="{{ .Article.Date }}">{{ .Article.DateFormatted }}</time>
+        <span class="meta-dot">·</span>
+        <span>{{ .Article.ReadingTime }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Markdown Rendered Prose -->
+  <div class="prose">
+    {{ .Article.HTMLContent }}
+  </div>
+
+  <!-- Interactive Claps Bar (Unlimited Claps) -->
+  <section class="engagement-bar">
+    <div class="claps-container">
+      <button id="clap-button" class="clap-button" data-slug="{{ .Article.Slug }}" aria-label="Clap to show appreciation (unlimited)">
+        <svg class="clap-icon" viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        <span class="clap-count">{{ .Article.Claps }}</span>
+        <span>Claps</span>
+      </button>
+      <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted);">
+        Tap as many times as you like
+      </span>
+    </div>
+
+    <div class="share-strip">
+      <a href="https://twitter.com/intent/tweet?text={{ .Article.Title | urlquery }}&url={{ .CanonicalURL | urlquery }}" target="_blank" rel="noopener" class="icon-btn" aria-label="Share on X">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </a>
+      <a href="/feed.xml" class="icon-btn" aria-label="RSS Feed">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 11a9 9 0 0 1 9 9"></path>
+          <path d="M4 4a16 16 0 0 1 16 16"></path>
+          <circle cx="5" cy="19" r="1"></circle>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Interactive Comments Section -->
+  <section id="comments-container" class="comments-section">
+    <div class="comments-header">
+      <h2 class="comments-title">Reflections &amp; Dialogue</h2>
+      <span id="comments-count-pill" class="comments-count-pill">
+        {{ len .Article.Comments }} reflection{{ if ne (len .Article.Comments) 1 }}s{{ end }}
+      </span>
+    </div>
+
+    <!-- Add Comment Form -->
+    <form id="comment-form" class="comment-form" data-slug="{{ .Article.Slug }}">
+      <div class="form-group">
+        <label for="comment-author" class="form-label">Your Name</label>
+        <input type="text" id="comment-author" class="form-input" placeholder="e.g. Clara Ward" required maxlength="50">
+      </div>
+      <div class="form-group">
+        <label for="comment-content" class="form-label">Your Reflection</label>
+        <textarea id="comment-content" class="form-textarea" placeholder="Add your perspective..." required maxlength="2000"></textarea>
+      </div>
+      <div class="form-actions">
+        <span id="comment-status" class="comment-status"></span>
+        <button type="submit" id="comment-submit" class="submit-btn">Leave Reflection</button>
+      </div>
+    </form>
+
+    <!-- Comments List -->
+    <div id="comments-list" class="comments-list">
+      {{ if eq (len .Article.Comments) 0 }}
+      <div class="empty-comments">No reflections yet. Be the first to share your thoughts.</div>
+      {{ else }}
+        {{ range .Article.Comments }}
+        <div class="comment-card" data-id="{{ .ID }}">
+          <div class="comment-meta">
+            <div class="comment-author-info">
+              <span class="comment-avatar">{{ .AuthorInitials }}</span>
+              <span class="comment-author-name">{{ .Author }}</span>
+            </div>
+            <time class="comment-date" datetime="{{ .CreatedAt }}">{{ .DateFormatted }}</time>
+          </div>
+          <div class="comment-body">{{ .Content }}</div>
+        </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  </section>
+</article>
